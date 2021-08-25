@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+addpost
+{% endblock title %}
+
+{% block content %}
+<div class="container my-3 text-white">
+    {% if request.user.is_superuser %}
+    <h1>Dashboard/AddPost/{{request.user.username}}</h1>
+    {% else %}
+    <h1>Dashboard/AddPost/{{request.user.first_name}}</h1>
+    {% endif %}
+</div>
+<div class="container bg-gradient  text-white my-5" style="background-color: black(122, 58, 58);">
+    <div class="row">
+        <div class="col-7">
+            <form action="" method="POST" novalidate>{% csrf_token %}
+                <table>
+                    {% for fm in form %}
+                    {{fm.label_tag}} {{fm}} 
+                    {% endfor %}
+                </table>
+                <input type="submit"class="btn btn-primary m-3 ms-3"value="Save">
+            </form>
+        </div>
+        <div class="col position-relative">
+            <div class="position-absolute top-50 start-30">
+                <h1>Add Your Post Here..</h1>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}
+Login
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-5 text-white">
+    <h1 class="border-bottom d-inline p-1 border-3">Login</h1>
+</div>
+<div class="container text-white p-3 my-5">
+    <div class="row">
+        <div class="col-6 border-end border-light">
+            {% if messages %}
+            {% for message in messages %}
+             <p class="alert alert-danger">{{message}}</p> 
+            {% endfor %}
+            {% endif %}
+            
+            {% if form.non_label_errors %}
+            {% for error in form.non_label_errors %}
+                <p class="text-warning">{{error}}</p>
+
+            {% endfor %}
+            {% endif %}
+         <form action="" method="POST" novalidate>{% csrf_token %}
+            <table>
+            {% for fm in form %}
+            {{fm.label_tag}} {{fm}} <small class="text-warning">{{fm.errors}}</small> 
+            {% endfor %}
+            </table> 
+            <input type="submit" class="btn btn-success my-2" value="Login">
+        </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

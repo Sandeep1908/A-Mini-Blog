@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Dashboard{% block dash %} {% endblock dash %}
+{% endblock title %}
+
+{% block css %}
+<style>
+    #myct {
+        overflow: scroll;
+        max-height: 500px;
+    }
+</style>
+{% endblock css %}
+
+{% block content %}
+
+<div class="container my-4 text-white border-bottom border-light">
+    {% if messages %}
+    {% for message in messages %}
+    <p class="alert alert-success my-4">{{message}}</p>
+    {% endfor %}
+    {% endif %}
+    <h1>Dashboard</h1>
+</div>
+<div class="container text-white bg-gradient my-5" style="background-color: black(122, 58, 58); border-radius: 10px;">
+    <div class="row">
+        <div class="col-3">
+            <h3>
+                Author:
+                {% if request.user.is_superuser %}
+                <small>{{request.user.username}}</small>
+                {% else %}
+                <small>{{request.user.first_name}}</small>
+                {% endif %}
+            </h3>
+            <a href="{% url 'addpost' %}" class="btn btn-success text-white my-2">Add Post</a>
+        </div>
+        <div class="col-9">
+            <div class="container" id="myct">
+
+                <table class="table text-white">
+                    <thead>
+                        <tr>
+                            <th scope="col">Title</th>
+                            <th scope="col">Discription</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for obj in object %}
+                        <tr>
+                            <td>{{obj.title}}</td>
+                            <td>{{obj.discription}}</td>
+                            <td><a href="{% url 'edit' obj.id %}" class="btn btn-warning">Edit</a></td>
+                            {% if request.user.is_superuser %}
+                            <td>
+                            <form action="{% url 'delete' obj.id %}" method="POST">{% csrf_token %}
+                                <input type="submit" class="btn btn-danger" value="Delete">
+                            </td>
+                            {% endif %}
+
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

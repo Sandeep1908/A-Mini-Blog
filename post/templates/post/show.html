@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{object.title}}
+{% endblock title %}
+
+{% block content %}
+<div class="container text-light my-5">
+    <h1 class="border-bottom p-2 d-inline">Your Post</h1>
+</div>
+ <div class="container my-5  p-3 bg-gradient text-white" style="background-color: black(122, 58, 58);">
+     <div class="row">
+         <div class="col">
+             <h2>{{object.title}}</h2>
+             <p>CreatedAt: {{object.date}}</p>
+             <p>{{object.discription}}</p>
+             <a href="{% url 'home' %}" class="btn btn-outline-warning m-3">Back</a>
+         </div>
+     </div>
+ </div>
+{% endblock content %}
